@@ -27,14 +27,11 @@ export default function EditPage() {
     }
   }, [page])
 
-  console.log(page)
-
   return (
     <div className="flex">
       {loading || (
         <div className="w-[96%] mx-auto">
           <HeaderEdit />
-
           <ContentEdit />
         </div>
       )}

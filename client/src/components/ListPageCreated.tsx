@@ -83,7 +83,12 @@ export default function ListPageCreated() {
               >
                 <td className="col-span-3"> {item.path}</td>
                 <td className="col-span-2">{item.pageName}</td>
-                <td className="col-span-3">{item.pageName}</td>
+                <td className="col-span-3">
+                  <a
+                    href={`https://test-remote.netlify.app${item.path}`}
+                    className=""
+                  >{`https://test-remote.netlify.app${item.path}`}</a>
+                </td>
                 <td className="col-span-2 text-center">
                   <div className="rounded-[10px] inline-block cursor-pointer w-[50px] relative h-[20px] bg-black">
                     <div
