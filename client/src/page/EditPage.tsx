@@ -27,6 +27,8 @@ export default function EditPage() {
     }
   }, [page])
 
+  console.log(page)
+
   return (
     <div className="flex">
       {loading || (

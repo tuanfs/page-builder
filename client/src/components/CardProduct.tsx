@@ -39,6 +39,7 @@ export default function CardProduct({item}: CardProductProp) {
                 className="mySwiper"
               >
                 {item.content &&
+                  item.content.length > 0 &&
                   JSON.parse(item.content[3]).map((item: any, index: any) => (
                     <SwiperSlide className="w-[300px]" key={index}>
                       <div className="w-[300px] mx-4 bg-white shadow-lg">
