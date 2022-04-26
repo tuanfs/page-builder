@@ -231,111 +231,131 @@ export default function SectionItem({items, idParent}: SectionItemProp) {
               showOnTop: true,
               className: "drop-preview",
             }}
-          >
-            {items.children.map((item, index) => {
+            render={(ref) => {
               return (
-                <Draggable key={index}>
-                  <div
-                    className={`relative bg-white border border-[#333] shadow-lg w-full my-1 min-h-[100px] p-2`}
-                  >
-                    <div className="text-2xl cursor-pointer">
-                      <Modal
-                        title="Enter data"
-                        open={open}
-                        handleClose={handleClose}
-                        onClose={setOpen}
-                      >
-                        <div className="">
-                          {sectionList.find(
-                            (item) => item.id === idParent && item.type !== "",
-                          ) &&
-                            sectionType[
-                              sectionList.find(
-                                (item) =>
-                                  item.id === idParent && item.type !== "",
-                              )?.type as keyof SectionType
-                            ]({
-                              idParent,
-                              idChildren: items.id,
-                              idItem: item.id,
-                              item,
-                              setOpen,
-                            })}
-                        </div>
-                      </Modal>
-                    </div>
-                    <div className="">
-                      <div className="flex items-center z-[2] absolute">
-                        <button
-                          className={`bg-[#ccc] mr-2 p-2 text-xl ${
-                            item.content && item.content.length > 0
-                              ? "hidden"
-                              : "inline-block"
-                          }`}
-                          onClick={() => {
-                            setOpen(true)
-                            setPreventDragSection(true)
-                          }}
-                        >
-                          <BsPlusLg />
-                        </button>
-                        <button
-                          onClick={() => {
-                            setOpen(true)
-                            setPreventDragSection(true)
-                          }}
-                          className={`bg-[#ccc] mr-2 p-2 text-xl ${
-                            item.content && item.content.length > 0
-                              ? "inline-block"
-                              : "hidden"
-                          }`}
-                        >
-                          <AiFillEdit />
-                        </button>
-                        <button
-                          onClick={() => handleRemoveItem(item.id)}
-                          className={`bg-[#ccc] p-2 inline-block text-xl ${
-                            item && item.content === [] && "hidden"
-                          }`}
-                        >
-                          <BsFillTrashFill />
-                        </button>
-                      </div>
-                      <div
-                        className={`${
-                          item.content && item.content.length === 0 && "hidden"
-                        } absolute left-[100px]`}
-                      >
-                        {item.content &&
-                        item.content.length > 0 &&
-                        item.content[0].toString().startsWith("http") ? (
-                          <div className="">
-                            <h3>Src: {item.content && item.content[0]}</h3>
-                            <h3>Alt: {item.content && item.content[1]}</h3>
-                          </div>
-                        ) : (
+                <ul ref={ref}>
+                  {items.children.map((item, index) => {
+                    return (
+                      <Draggable
+                        key={index}
+                        render={() => (
                           <div
-                            className={`${
-                              item.content && item.content.length > 0
-                                ? "block"
-                                : "hidden"
-                            }`}
+                            className={`relative bg-white border border-[#333] shadow-lg w-full my-1 min-h-[100px] p-2`}
                           >
-                            <h3>
-                              Greater than: {item.content && item.content[0]}
-                            </h3>
-                            <h3>
-                              Less than: {item.content && item.content[1]}
-                            </h3>
+                            <div className="text-2xl cursor-pointer">
+                              <Modal
+                                title="Enter data"
+                                open={open}
+                                handleClose={handleClose}
+                                onClose={setOpen}
+                              >
+                                <div className="">
+                                  {sectionList.find(
+                                    (item) =>
+                                      item.id === idParent && item.type !== "",
+                                  ) &&
+                                    sectionType[
+                                      sectionList.find(
+                                        (item) =>
+                                          item.id === idParent &&
+                                          item.type !== "",
+                                      )?.type as keyof SectionType
+                                    ]({
+                                      idParent,
+                                      idChildren: items.id,
+                                      idItem: item.id,
+                                      item,
+                                      setOpen,
+                                    })}
+                                </div>
+                              </Modal>
+                            </div>
+                            <div className="">
+                              <div className="flex items-center z-[2] absolute">
+                                <button
+                                  className={`bg-[#ccc] mr-2 p-2 text-xl ${
+                                    item.content && item.content.length > 0
+                                      ? "hidden"
+                                      : "inline-block"
+                                  }`}
+                                  onClick={() => {
+                                    setOpen(true)
+                                    setPreventDragSection(true)
+                                  }}
+                                >
+                                  <BsPlusLg />
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setOpen(true)
+                                    setPreventDragSection(true)
+                                  }}
+                                  className={`bg-[#ccc] mr-2 p-2 text-xl ${
+                                    item.content && item.content.length > 0
+                                      ? "inline-block"
+                                      : "hidden"
+                                  }`}
+                                >
+                                  <AiFillEdit />
+                                </button>
+                                <button
+                                  onClick={() => handleRemoveItem(item.id)}
+                                  className={`bg-[#ccc] p-2 inline-block text-xl ${
+                                    item && item.content === [] && "hidden"
+                                  }`}
+                                >
+                                  <BsFillTrashFill />
+                                </button>
+                              </div>
+                              <div
+                                className={`${
+                                  item.content &&
+                                  item.content.length === 0 &&
+                                  "hidden"
+                                } absolute left-[100px]`}
+                              >
+                                {item.content &&
+                                item.content.length > 0 &&
+                                item.content[0]
+                                  .toString()
+                                  .startsWith("http") ? (
+                                  <div className="">
+                                    <h3>
+                                      Src: {item.content && item.content[0]}
+                                    </h3>
+                                    <h3>
+                                      Alt: {item.content && item.content[1]}
+                                    </h3>
+                                  </div>
+                                ) : (
+                                  <div
+                                    className={`${
+                                      item.content && item.content.length > 0
+                                        ? "block"
+                                        : "hidden"
+                                    }`}
+                                  >
+                                    <h3>
+                                      Greater than:{" "}
+                                      {item.content && item.content[0]}
+                                    </h3>
+                                    <h3>
+                                      Less than:{" "}
+                                      {item.content && item.content[1]}
+                                    </h3>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
                           </div>
                         )}
-                      </div>
-                    </div>
-                  </div>
-                </Draggable>
+                      ></Draggable>
+                    )
+                  })}
+                </ul>
               )
-            })}
-          </Container>
+            }}
+          ></Container>
         </div>
       </div>
     </>

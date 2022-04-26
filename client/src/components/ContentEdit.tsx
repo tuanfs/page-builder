@@ -94,23 +94,31 @@ export default function ContentEdit() {
           orientation="vertical"
           groupName="section"
           getChildPayload={getPayload}
-          onDrop={(e) => handleDrop(e)}
+          onDrop={(e: any) => handleDrop(e)}
           dragHandleSelector={`${preventDragSection ? ".prevent" : ""}`}
           dropPlaceholder={{
             animationDuration: 150,
             showOnTop: true,
             className: "cards-drop-preview",
           }}
-        >
-          {sectionList &&
-            sectionList.map((item, index) => {
-              return (
-                <Draggable key={index}>
-                  <SectionEdit items={item} />
-                </Draggable>
-              )
-            })}
-        </Container>
+          render={(ref) => {
+            return (
+              <ul ref={ref}>
+                {sectionList &&
+                  sectionList.map((item, index) => {
+                    return (
+                      <Draggable
+                        key={index}
+                        render={() => {
+                          return <SectionEdit items={item} />
+                        }}
+                      />
+                    )
+                  })}
+              </ul>
+            )
+          }}
+        ></Container>
       </div>
     </div>
   )

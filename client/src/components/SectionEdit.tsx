@@ -348,19 +348,27 @@ export default function SectionEdit({items}: SectionEditProp) {
               showOnTop: true,
               className: "drop-preview",
             }}
-          >
-            {items.children.map((item, index) => {
+            render={(ref) => {
               return (
-                <Draggable key={index}>
-                  <SectionItem
-                    idParent={items.id}
-                    items={item}
-                    columnActive={items.columnActive}
-                  />
-                </Draggable>
+                <ul ref={ref}>
+                  {items.children.map((item, index) => {
+                    return (
+                      <Draggable
+                        key={index}
+                        render={() => (
+                          <SectionItem
+                            idParent={items.id}
+                            items={item}
+                            columnActive={items.columnActive}
+                          />
+                        )}
+                      ></Draggable>
+                    )
+                  })}
+                </ul>
               )
-            })}
-          </Container>
+            }}
+          ></Container>
         </div>
       </div>
       <Modal
