@@ -70,13 +70,15 @@ function SectionContextProvider({children}: SectionContextProviderProp) {
       const newItem = Object.assign({}, item)
       newItem.children = item.children.map((item: any) => {
         const newItem = Object.assign({}, item)
-        newItem.children = item.children.filter(
-          (item: any) => item.content !== [],
-        )
+        newItem.children = newItem.children.filter((item: any) => {
+          return item.content && item.content.length > 0
+        })
+
         return newItem
       })
       return newItem
     })
+
     const result = await dispatch(
       updatePage({
         id: id,

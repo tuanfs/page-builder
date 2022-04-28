@@ -355,14 +355,18 @@ export default function SectionEdit({items}: SectionEditProp) {
                     return (
                       <Draggable
                         key={index}
-                        render={() => (
-                          <SectionItem
-                            idParent={items.id}
-                            items={item}
-                            columnActive={items.columnActive}
-                          />
-                        )}
-                      ></Draggable>
+                        render={() => {
+                          return (
+                            <li>
+                              <SectionItem
+                                idParent={items.id}
+                                items={item}
+                                columnActive={items.columnActive}
+                              />
+                            </li>
+                          )
+                        }}
+                      />
                     )
                   })}
                 </ul>

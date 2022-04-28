@@ -110,7 +110,11 @@ export default function ContentEdit() {
                       <Draggable
                         key={index}
                         render={() => {
-                          return <SectionEdit items={item} />
+                          return (
+                            <li>
+                              <SectionEdit items={item} />
+                            </li>
+                          )
                         }}
                       />
                     )
