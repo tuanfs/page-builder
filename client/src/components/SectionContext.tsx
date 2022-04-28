@@ -91,7 +91,10 @@ function SectionContextProvider({children}: SectionContextProviderProp) {
       }),
     )
     if (updatePage.fulfilled.match(result)) {
-      dispatch(getOnePage(id))
+      const result = await dispatch(getOnePage(id))
+      if (getOnePage.fulfilled.match(result)) {
+        setSectionList(JSON.parse(JSON.stringify(result.payload.sections)))
+      }
     }
   }
 

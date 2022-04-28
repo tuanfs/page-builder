@@ -33,8 +33,6 @@ export default function DemoPage() {
   const navigate = useNavigate()
   useEffect(() => {
     setSectionListNew(sectionList)
-
-    console.log("????")
   }, [sectionList])
 
   useEffect(() => {
@@ -67,8 +65,7 @@ export default function DemoPage() {
           Save Edit
         </button>
       </div>
-      {!loading &&
-        sectionListNew &&
+      {sectionListNew &&
         sectionListNew.map((item, index) => {
           return (
             <div
