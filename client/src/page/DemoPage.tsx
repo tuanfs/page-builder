@@ -34,7 +34,7 @@ export default function DemoPage() {
   useEffect(() => {
     setSectionListNew(sectionList)
 
-    return () => setSectionListNew([])
+    console.log("????")
   }, [sectionList])
 
   useEffect(() => {
