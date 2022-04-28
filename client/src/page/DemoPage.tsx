@@ -67,7 +67,8 @@ export default function DemoPage() {
           Save Edit
         </button>
       </div>
-      {sectionListNew &&
+      {!loading &&
+        sectionListNew &&
         sectionListNew.map((item, index) => {
           return (
             <div
