@@ -6,9 +6,10 @@ import Coupon from "../components/Coupon"
 import {Link} from "react-router-dom"
 import {SectionContext} from "../components/SectionContext"
 import {useParams} from "react-router-dom"
-import {useAppDispatch} from "../features/hooks"
+import {useAppDispatch, useAppSelector} from "../features/hooks"
 import {Section} from "../utils/type"
 import {getOnePage} from "../features/AppSlice"
+import {useNavigate} from "react-router-dom"
 
 interface TypeComponent {
   banner: (item: Section) => JSX.Element
@@ -26,9 +27,11 @@ export default function DemoPage() {
   const value = useContext(SectionContext)
   const {id = ""} = useParams()
   const dispatch = useAppDispatch()
-  const {handleSavePage, sectionList} = value
+  const {handleSavePage, sectionList, loadingDemoPage, setLoadingDemoPage} =
+    value
+  const loading = useAppSelector((state) => state.app.loading)
   const [sectionListNew, setSectionListNew] = useState<Section[]>(sectionList)
-
+  const navigate = useNavigate()
   useEffect(() => {
     setSectionListNew(sectionList)
   }, [sectionList])
@@ -40,27 +43,32 @@ export default function DemoPage() {
         setSectionListNew(result.payload.sections)
       }
     }
+
     fetchSection()
   }, [id, dispatch])
 
   return (
     <div>
-      <div></div>
       <div className="h-[100px] flex items-center px-6 bg-white m-4 rounded-[4px] ">
         <Link
           to={`/edit/${id}`}
           className="text-white font-semibold text-lg px-5 py-3 mr-4 bg-[#ea5354] rounded-[4px]"
         >
-          Quay lại chỉnh sửa
+          <span onClick={() => setLoadingDemoPage(true)}>Back to edit</span>
         </Link>
         <button
-          onClick={() => handleSavePage(id)}
+          onClick={() => {
+            handleSavePage(id)
+            setLoadingDemoPage(true)
+            navigate("/")
+          }}
           className="text-white font-semibold text-lg px-5 py-2 bg-[#2cc670] rounded-[4px]"
         >
-          Lưu lại thay đổi
+          Save Edit
         </button>
       </div>
-      {sectionListNew &&
+      {!loadingDemoPage &&
+        sectionListNew &&
         sectionListNew.map((item, index) => {
           return (
             <div

@@ -1,4 +1,4 @@
-import React, {useContext} from "react"
+import {useContext} from "react"
 import {Link} from "react-router-dom"
 import {useParams} from "react-router-dom"
 import {SectionContext} from "./SectionContext"
@@ -13,6 +13,7 @@ export default function HeaderEdit() {
     setPageNameValue,
     setPathValue,
     handleSavePage,
+    setLoadingDemoPage,
   } = value
   const navigate = useNavigate()
 
@@ -26,16 +27,17 @@ export default function HeaderEdit() {
           }}
           className="text-white font-semibold text-lg px-5 py-2 bg-[#ea5354] rounded-[4px]"
         >
-          Lưu lại thay đổi
+          Save edit
         </button>
         <Link
           to={`/demo/${id}`}
           onClick={() => {
             handleSavePage(id)
+            setLoadingDemoPage(false)
           }}
           className="text-white font-semibold text-lg px-5 py-3 ml-5 rounded-[4px] bg-[#2cc670]"
         >
-          Xem trước
+          Preview
         </Link>
       </div>
       <div className="grid grid-cols-12 gap-5">
@@ -43,7 +45,7 @@ export default function HeaderEdit() {
           <form className="text-left">
             <div>
               <label className="text-lg font-semibold text-[#444] ml-3">
-                Tên trang
+                Page Name
               </label>
               <input
                 type="text"
@@ -55,7 +57,7 @@ export default function HeaderEdit() {
             </div>
             <div className="mt-4">
               <label className="text-lg font-semibold text-[#444] ml-3">
-                Đường dẫn
+                Path
               </label>
               <input
                 type="text"
@@ -70,7 +72,7 @@ export default function HeaderEdit() {
         <div className="col-span-6">
           <div className="bg-white w-full h-[200px] px-4">
             <h3 className="font-semibold block py-4 text-[#444] text-lg">
-              Một số thông tin class
+              Information class
             </h3>
             <div className="flex">
               <div className="bg-[#333] mr-4 rounded-[4px] text-white font-semibold text-lg px-4 py-2">
