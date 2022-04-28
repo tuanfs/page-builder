@@ -11,9 +11,7 @@ interface CreateContext {
   pathValue: string
   pageNameValue: string
   preventDragSection: boolean
-  loadingDemoPage: boolean
   setPreventDragSection: React.Dispatch<React.SetStateAction<boolean>>
-  setLoadingDemoPage: React.Dispatch<React.SetStateAction<boolean>>
   setPageNameValue: React.Dispatch<React.SetStateAction<string>>
   setPathValue: React.Dispatch<React.SetStateAction<string>>
 }
@@ -46,8 +44,6 @@ const defaultValue = {
   setPathValue: () => {},
   preventDragSection: false,
   preventDragChildren: false,
-  loadingDemoPage: true,
-  setLoadingDemoPage: () => {},
   setPreventDragSection: () => {},
   setPreventDragChildren: () => {},
 }
@@ -64,7 +60,6 @@ function SectionContextProvider({children}: SectionContextProviderProp) {
   const [pathValue, setPathValue] = useState<string>("")
   const [pageNameValue, setPageNameValue] = useState<string>("")
   const [preventDragSection, setPreventDragSection] = useState(false)
-  const [loadingDemoPage, setLoadingDemoPage] = useState(true)
 
   const handleSetSectionList = (sectionList: Section[]) => {
     setSectionList(sectionList)
@@ -110,8 +105,6 @@ function SectionContextProvider({children}: SectionContextProviderProp) {
     setPathValue,
     preventDragSection,
     setPreventDragSection,
-    loadingDemoPage,
-    setLoadingDemoPage,
   }
   return (
     <SectionContext.Provider value={value}>{children}</SectionContext.Provider>

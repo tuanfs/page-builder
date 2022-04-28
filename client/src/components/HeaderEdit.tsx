@@ -13,7 +13,6 @@ export default function HeaderEdit() {
     setPageNameValue,
     setPathValue,
     handleSavePage,
-    setLoadingDemoPage,
   } = value
   const navigate = useNavigate()
 
@@ -33,7 +32,6 @@ export default function HeaderEdit() {
           to={`/demo/${id}`}
           onClick={() => {
             handleSavePage(id)
-            setLoadingDemoPage(false)
           }}
           className="text-white font-semibold text-lg px-5 py-3 ml-5 rounded-[4px] bg-[#2cc670]"
         >

@@ -27,13 +27,14 @@ export default function DemoPage() {
   const value = useContext(SectionContext)
   const {id = ""} = useParams()
   const dispatch = useAppDispatch()
-  const {handleSavePage, sectionList, loadingDemoPage, setLoadingDemoPage} =
-    value
+  const {handleSavePage, sectionList} = value
   const loading = useAppSelector((state) => state.app.loading)
   const [sectionListNew, setSectionListNew] = useState<Section[]>(sectionList)
   const navigate = useNavigate()
   useEffect(() => {
     setSectionListNew(sectionList)
+
+    return () => setSectionListNew([])
   }, [sectionList])
 
   useEffect(() => {
@@ -45,8 +46,6 @@ export default function DemoPage() {
     }
 
     fetchSection()
-
-    return () => setLoadingDemoPage(false)
   }, [id, dispatch])
 
   return (
@@ -56,12 +55,11 @@ export default function DemoPage() {
           to={`/edit/${id}`}
           className="text-white font-semibold text-lg px-5 py-3 mr-4 bg-[#ea5354] rounded-[4px]"
         >
-          <span onClick={() => setLoadingDemoPage(true)}>Back to edit</span>
+          <span>Back to edit</span>
         </Link>
         <button
           onClick={() => {
             handleSavePage(id)
-            setLoadingDemoPage(true)
             navigate("/")
           }}
           className="text-white font-semibold text-lg px-5 py-2 bg-[#2cc670] rounded-[4px]"
@@ -69,8 +67,7 @@ export default function DemoPage() {
           Save Edit
         </button>
       </div>
-      {!loadingDemoPage &&
-        sectionListNew &&
+      {sectionListNew &&
         sectionListNew.map((item, index) => {
           return (
             <div
