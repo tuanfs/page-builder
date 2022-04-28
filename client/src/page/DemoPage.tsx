@@ -45,6 +45,8 @@ export default function DemoPage() {
     }
 
     fetchSection()
+
+    return () => setLoadingDemoPage(false)
   }, [id, dispatch])
 
   return (
